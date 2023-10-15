@@ -21,7 +21,14 @@ namespace Home_Appliance_Rental_Application
         addApplianceFrm addApplianceFrm;
         orderManagementFrm orderManagementFrm;
         userManagmentFrm userManagmentFrm;
-        
+
+        private appliancesFrm appliancesFrmRefresh;
+
+        public administratorFrm(appliancesFrm appliancesFrmRefresh)
+        {
+            this.appliancesFrm = appliancesFrmRefresh;
+        }
+
 
         private void administratorFrm_Load(object sender, EventArgs e)
         {
@@ -41,6 +48,7 @@ namespace Home_Appliance_Rental_Application
             }
 
             lblUsername.Text = loginFrm.username;
+
         }
 
         private void administratorFrm_FormClosing(object sender, FormClosingEventArgs e)
@@ -106,6 +114,9 @@ namespace Home_Appliance_Rental_Application
                 orderManagementBtn.BackColor = Color.FromArgb(113, 58, 190);
                 userManagementBtn.BackColor = Color.FromArgb(113, 58, 190);
             }
+
+            appliancesFrm.RefreshMyDataGridView();
+
         }
 
         private void AppliancesFrm_FormClosed(object sender, FormClosedEventArgs e)
