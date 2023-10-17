@@ -178,7 +178,7 @@ namespace Home_Appliance_Rental_Application
                     var password = encrypt.HashString(passwordTxt.Text);
 
                     // Insert consumer information into 'users' table
-                    cmd = new SqlCommand("INSERT INTO users (username, phone_number, city_town, residential_address, user_password, user_type) VALUES ('" + (usernameTxt.Text).Trim() + "', '" + (phoneNumberTxt.Text).Trim() + "', '" + (cityTownCbx.Text).Trim() + "', '" + (residentialAddressTxt.Text).Trim() + "', '" + password + "', 'customer')", con);
+                    cmd = new SqlCommand("INSERT INTO users (username, phone_number, city_town, residential_address, user_password, user_type, status) VALUES ('" + (usernameTxt.Text).Trim() + "', '" + (phoneNumberTxt.Text).Trim() + "', '" + (cityTownCbx.Text).Trim() + "', '" + (residentialAddressTxt.Text).Trim() + "', '" + password + "', 'customer', 'Enabled')", con);
                     // Open database connection
                     con.Open();
                     // Execute query

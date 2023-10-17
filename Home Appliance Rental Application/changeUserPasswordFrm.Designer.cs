@@ -69,14 +69,15 @@
             // 
             this.changePasswordBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(58)))), ((int)(((byte)(190)))));
             this.changePasswordBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.changePasswordBtn.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.changePasswordBtn.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.changePasswordBtn.ForeColor = System.Drawing.Color.White;
             this.changePasswordBtn.Location = new System.Drawing.Point(72, 199);
             this.changePasswordBtn.Name = "changePasswordBtn";
             this.changePasswordBtn.Size = new System.Drawing.Size(417, 53);
             this.changePasswordBtn.TabIndex = 64;
-            this.changePasswordBtn.Text = "CHANGE PASSWORD";
+            this.changePasswordBtn.Text = "Change Password";
             this.changePasswordBtn.UseVisualStyleBackColor = false;
+            this.changePasswordBtn.Click += new System.EventHandler(this.changePasswordBtn_Click);
             // 
             // changeUserPasswordFrm
             // 

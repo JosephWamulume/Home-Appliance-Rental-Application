@@ -30,26 +30,26 @@
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.ordersDgv = new System.Windows.Forms.DataGridView();
+            this.orderNumberTxt = new System.Windows.Forms.TextBox();
+            this.myOrdersDgv = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.orderItemsLbx = new System.Windows.Forms.ListBox();
-            this.updateStatusBtn = new System.Windows.Forms.Button();
+            this.changeStatusBtn = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ordersDgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.myOrdersDgv)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.updateStatusBtn);
+            this.groupBox2.Controls.Add(this.changeStatusBtn);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.ordersDgv);
+            this.groupBox2.Controls.Add(this.orderNumberTxt);
+            this.groupBox2.Controls.Add(this.myOrdersDgv);
             this.groupBox2.Font = new System.Drawing.Font("Poppins Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(43, 32);
+            this.groupBox2.Location = new System.Drawing.Point(45, 45);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1183, 438);
+            this.groupBox2.Size = new System.Drawing.Size(1475, 580);
             this.groupBox2.TabIndex = 67;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Orders";
@@ -60,36 +60,39 @@
             this.label5.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(13, 53);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(171, 36);
+            this.label5.Size = new System.Drawing.Size(169, 36);
             this.label5.TabIndex = 61;
-            this.label5.Text = "QUICK SEARCH:";
+            this.label5.Text = "Order Number:";
             // 
-            // textBox1
+            // orderNumberTxt
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("Poppins Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(198, 51);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(538, 37);
-            this.textBox1.TabIndex = 60;
+            this.orderNumberTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.orderNumberTxt.Font = new System.Drawing.Font("Poppins Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.orderNumberTxt.Location = new System.Drawing.Point(198, 51);
+            this.orderNumberTxt.Name = "orderNumberTxt";
+            this.orderNumberTxt.Size = new System.Drawing.Size(538, 37);
+            this.orderNumberTxt.TabIndex = 60;
+            this.orderNumberTxt.TextChanged += new System.EventHandler(this.orderNumberTxt_TextChanged);
             // 
-            // ordersDgv
+            // myOrdersDgv
             // 
-            this.ordersDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ordersDgv.Location = new System.Drawing.Point(19, 114);
-            this.ordersDgv.Name = "ordersDgv";
-            this.ordersDgv.RowHeadersWidth = 62;
-            this.ordersDgv.RowTemplate.Height = 28;
-            this.ordersDgv.Size = new System.Drawing.Size(1140, 300);
-            this.ordersDgv.TabIndex = 0;
+            this.myOrdersDgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.myOrdersDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.myOrdersDgv.Location = new System.Drawing.Point(19, 114);
+            this.myOrdersDgv.Name = "myOrdersDgv";
+            this.myOrdersDgv.RowHeadersWidth = 62;
+            this.myOrdersDgv.RowTemplate.Height = 28;
+            this.myOrdersDgv.Size = new System.Drawing.Size(1435, 433);
+            this.myOrdersDgv.TabIndex = 0;
+            this.myOrdersDgv.SelectionChanged += new System.EventHandler(this.myOrdersDgv_SelectionChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.orderItemsLbx);
             this.groupBox1.Font = new System.Drawing.Font("Poppins Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(43, 487);
+            this.groupBox1.Location = new System.Drawing.Point(45, 645);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1183, 438);
+            this.groupBox1.Size = new System.Drawing.Size(1475, 578);
             this.groupBox1.TabIndex = 66;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Order Items";
@@ -100,35 +103,37 @@
             this.orderItemsLbx.ItemHeight = 36;
             this.orderItemsLbx.Location = new System.Drawing.Point(19, 49);
             this.orderItemsLbx.Name = "orderItemsLbx";
-            this.orderItemsLbx.Size = new System.Drawing.Size(1140, 364);
+            this.orderItemsLbx.Size = new System.Drawing.Size(1435, 508);
             this.orderItemsLbx.TabIndex = 63;
             // 
-            // updateStatusBtn
+            // changeStatusBtn
             // 
-            this.updateStatusBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(58)))), ((int)(((byte)(190)))));
-            this.updateStatusBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.updateStatusBtn.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateStatusBtn.ForeColor = System.Drawing.Color.White;
-            this.updateStatusBtn.Location = new System.Drawing.Point(835, 42);
-            this.updateStatusBtn.Name = "updateStatusBtn";
-            this.updateStatusBtn.Size = new System.Drawing.Size(324, 53);
-            this.updateStatusBtn.TabIndex = 68;
-            this.updateStatusBtn.Text = "Update Status";
-            this.updateStatusBtn.UseVisualStyleBackColor = false;
+            this.changeStatusBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(58)))), ((int)(((byte)(190)))));
+            this.changeStatusBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.changeStatusBtn.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.changeStatusBtn.ForeColor = System.Drawing.Color.White;
+            this.changeStatusBtn.Location = new System.Drawing.Point(1054, 44);
+            this.changeStatusBtn.Name = "changeStatusBtn";
+            this.changeStatusBtn.Size = new System.Drawing.Size(400, 53);
+            this.changeStatusBtn.TabIndex = 89;
+            this.changeStatusBtn.Text = "Update Status";
+            this.changeStatusBtn.UseVisualStyleBackColor = false;
+            this.changeStatusBtn.Click += new System.EventHandler(this.changeStatusBtn_Click);
             // 
             // orderManagementFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1269, 991);
+            this.ClientSize = new System.Drawing.Size(1564, 1269);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "orderManagementFrm";
             this.Text = "orderManagementFrm";
+            this.Load += new System.EventHandler(this.orderManagementFrm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ordersDgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.myOrdersDgv)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -138,10 +143,10 @@
 
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DataGridView ordersDgv;
+        private System.Windows.Forms.TextBox orderNumberTxt;
+        private System.Windows.Forms.DataGridView myOrdersDgv;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox orderItemsLbx;
-        private System.Windows.Forms.Button updateStatusBtn;
+        private System.Windows.Forms.Button changeStatusBtn;
     }
 }

@@ -16,7 +16,7 @@ namespace Home_Appliance_Rental_Application
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new administratorFrm());
+            Application.Run(new splashFrm());
         }
     }
 }

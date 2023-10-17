@@ -108,7 +108,7 @@ namespace Home_Appliance_Rental_Application
                 {
                     minimum_rental_period = 1;
                 }
-                if (typeCbx.Text == "Refridgeration")
+                if (typeCbx.Text == "Refrigeration")
                 {
                     minimum_rental_period = 3;
                 }

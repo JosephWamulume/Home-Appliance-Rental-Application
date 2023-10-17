@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.orderStutusCbx = new System.Windows.Forms.ComboBox();
+            this.orderStatusCbx = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.loginBtn = new System.Windows.Forms.Button();
+            this.updateBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // orderStutusCbx
+            // orderStatusCbx
             // 
-            this.orderStutusCbx.BackColor = System.Drawing.Color.LightGray;
-            this.orderStutusCbx.Font = new System.Drawing.Font("Poppins Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.orderStutusCbx.FormattingEnabled = true;
-            this.orderStutusCbx.ItemHeight = 36;
-            this.orderStutusCbx.Items.AddRange(new object[] {
+            this.orderStatusCbx.BackColor = System.Drawing.Color.LightGray;
+            this.orderStatusCbx.Font = new System.Drawing.Font("Poppins Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.orderStatusCbx.FormattingEnabled = true;
+            this.orderStatusCbx.ItemHeight = 36;
+            this.orderStatusCbx.Items.AddRange(new object[] {
             "Processing",
             "Delivering",
             "Delivered"});
-            this.orderStutusCbx.Location = new System.Drawing.Point(68, 107);
-            this.orderStutusCbx.Name = "orderStutusCbx";
-            this.orderStutusCbx.Size = new System.Drawing.Size(417, 44);
-            this.orderStutusCbx.TabIndex = 61;
+            this.orderStatusCbx.Location = new System.Drawing.Point(68, 107);
+            this.orderStatusCbx.Name = "orderStatusCbx";
+            this.orderStatusCbx.Size = new System.Drawing.Size(417, 44);
+            this.orderStatusCbx.TabIndex = 61;
             // 
             // label1
             // 
@@ -58,30 +58,32 @@
             this.label1.TabIndex = 62;
             this.label1.Text = "Order Status";
             // 
-            // loginBtn
+            // updateBtn
             // 
-            this.loginBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(58)))), ((int)(((byte)(190)))));
-            this.loginBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loginBtn.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginBtn.ForeColor = System.Drawing.Color.White;
-            this.loginBtn.Location = new System.Drawing.Point(68, 216);
-            this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(417, 53);
-            this.loginBtn.TabIndex = 63;
-            this.loginBtn.Text = "LOGIN";
-            this.loginBtn.UseVisualStyleBackColor = false;
+            this.updateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(58)))), ((int)(((byte)(190)))));
+            this.updateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateBtn.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateBtn.ForeColor = System.Drawing.Color.White;
+            this.updateBtn.Location = new System.Drawing.Point(68, 216);
+            this.updateBtn.Name = "updateBtn";
+            this.updateBtn.Size = new System.Drawing.Size(417, 53);
+            this.updateBtn.TabIndex = 63;
+            this.updateBtn.Text = "Update";
+            this.updateBtn.UseVisualStyleBackColor = false;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
             // updateOrderStatusFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 339);
-            this.Controls.Add(this.loginBtn);
-            this.Controls.Add(this.orderStutusCbx);
+            this.Controls.Add(this.updateBtn);
+            this.Controls.Add(this.orderStatusCbx);
             this.Controls.Add(this.label1);
             this.Name = "updateOrderStatusFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Order Status";
+            this.Load += new System.EventHandler(this.updateOrderStatusFrm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -89,8 +91,8 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox orderStutusCbx;
+        private System.Windows.Forms.ComboBox orderStatusCbx;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button loginBtn;
+        private System.Windows.Forms.Button updateBtn;
     }
 }

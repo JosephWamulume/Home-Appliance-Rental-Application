@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Home_Appliance_Rental_Application
 {
@@ -28,14 +29,20 @@ namespace Home_Appliance_Rental_Application
         private DataTable dt = new DataTable();
         private DataSet ds = new DataSet();
 
-        public string conditions = "";
+        public string filterCondition = "";
+        public string sortCondition = "";
+
+        public static string applianceModel, applianceSize, applianceColour, applianceEnergyConsumption, applianceMonthlyRentalPrice, applianceStock;
+        public static int applianceID, typeSelectedIndex, brandSelectedIndex;
+
+        public string searchConditions = "";
 
         public DataTable BindSource()
         {
             // Open database connection
             con.Open();
             // Retrieve all surveys from 'survey' table
-            cmd = new SqlCommand("SELECT type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance", con);
+            cmd = new SqlCommand("SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance", con);
             da = new SqlDataAdapter(cmd);
             // Clear existing dataset if any
             ds.Clear();
@@ -50,6 +57,8 @@ namespace Home_Appliance_Rental_Application
             {
                 // Populate data grid with returned rows
                 appliancesDgv.DataSource = dt;
+                appliancesDgv.Columns["Id"].HeaderText = "ID";
+                appliancesDgv.Columns["Id"].Visible = false;
                 appliancesDgv.Columns["type"].HeaderText = "Type";
                 appliancesDgv.Columns["brand"].HeaderText = "Brand";
                 appliancesDgv.Columns["model"].HeaderText = "Model";
@@ -107,12 +116,31 @@ namespace Home_Appliance_Rental_Application
             brandCbx.SelectedIndex = -1;
             sortCbx.SelectedIndex = -1;
             quickSearchTxt.Text = string.Empty;
-            searchConditionsLbl.Text = string.Empty;
+            searchConditionsLbl.Text = "There are currently no search terms selected or entered";
+        }
+
+        private void quickSearchTxt_TextChanged(object sender, EventArgs e)
+        {
+            // Open database connection
+            con.Open();
+            // Retrieve all surveys from 'survey' table
+            cmd = new SqlCommand("SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance WHERE type LIKE '%" + quickSearchTxt.Text + "%' OR brand LIKE '%" + quickSearchTxt.Text + "%' OR model LIKE '%" + quickSearchTxt.Text + "%' OR colour LIKE '%" + quickSearchTxt.Text + "%'", con);
+            da = new SqlDataAdapter(cmd);
+            // Clear existing dataset if any
+            ds.Clear();
+            // Store retrived surveys in dataset
+            da.Fill(ds);
+            // Store dataset table in datatable
+            dt = ds.Tables[0];
+            // Close database connection
+            con.Close();
+            // Display data
+            appliancesDgv.DataSource = dt;
         }
 
         private void filterBtn_Click(object sender, EventArgs e)
         {
-            conditions = "";
+            filterCondition = "";
 
             if ((typeCbx.SelectedItem == null) && (brandCbx.SelectedItem == null))
             {
@@ -126,21 +154,32 @@ namespace Home_Appliance_Rental_Application
 
                 if ((typeCbx.SelectedItem != null) && (brandCbx.SelectedItem == null))
                 {
-                    conditions += "type = '" + typeCbx.SelectedItem.ToString() + "'";
+                    filterCondition += "type = '" + typeCbx.SelectedItem.ToString() + "'";
                 }
                 if ((brandCbx.SelectedItem != null) && (typeCbx.SelectedItem == null))
                 {
-                    conditions += "brand = '" + brandCbx.SelectedItem.ToString() + "'";
+                    filterCondition += "brand = '" + brandCbx.SelectedItem.ToString() + "'";
                 }
                 if ((brandCbx.SelectedItem != null) && (typeCbx.SelectedItem != null))
                 {
-                    conditions += "brand = '" + brandCbx.SelectedItem.ToString() + "' AND type = '" + typeCbx.SelectedItem.ToString() + "'";
+                    filterCondition += "brand = '" + brandCbx.SelectedItem.ToString() + "' AND type = '" + typeCbx.SelectedItem.ToString() + "'";
+                }
+
+                string sql;
+
+                if (!String.IsNullOrEmpty(sortCondition))
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance WHERE " + filterCondition + "ORDER BY " + sortCondition;
+                }
+                else
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance WHERE " + filterCondition;
                 }
 
                 // Open database connection
                 con.Open();
                 // Retrieve all surveys from 'survey' table
-                cmd = new SqlCommand("SELECT type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance WHERE " + conditions, con);
+                cmd = new SqlCommand(sql, con);
                 da = new SqlDataAdapter(cmd);
                 // Clear existing dataset if any
                 ds.Clear();
@@ -177,8 +216,6 @@ namespace Home_Appliance_Rental_Application
         private void sortBtn_Click(object sender, EventArgs e)
         {
 
-            string sortQuery = "";
-
             if (sortCbx.SelectedItem == null)
             {
                 // Display error message if user leaves the type text field empty
@@ -189,25 +226,71 @@ namespace Home_Appliance_Rental_Application
                 return;
             }
 
-            if (sortCbx.Text == "Price (High to Low)")
+            string sql = "";
+
+            if (!String.IsNullOrEmpty(filterCondition))
             {
-                sortQuery = "SELECT type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance ORDER BY monthly_rental_fee DESC";
+                if (sortCbx.Text == "Price (High to Low)")
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance WHERE " + filterCondition + " ORDER BY monthly_rental_fee DESC";
+                }
+
+                if (sortCbx.Text == "Price (Low to High)")
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance WHERE " + filterCondition + " ORDER BY monthly_rental_fee ASC";
+                }
+
+                if (sortCbx.Text == "Energy Consumption (High to Low)")
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance  WHERE " + filterCondition + " ORDER BY energy_consumption DESC";
+                }
+
+                if (sortCbx.Text == "Energy Consumption (Low to High)")
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance WHERE " + filterCondition + " ORDER BY energy_consumption ASC";
+                }
+            } 
+            else
+            {
+                if (sortCbx.Text == "Price (High to Low)")
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance ORDER BY monthly_rental_fee DESC";
+                }
+
+                if (sortCbx.Text == "Price (Low to High)")
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance ORDER BY monthly_rental_fee ASC";
+                }
+
+                if (sortCbx.Text == "Energy Consumption (High to Low)")
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance ORDER BY energy_consumption DESC";
+                }
+
+                if (sortCbx.Text == "Energy Consumption (Low to High)")
+                {
+                    sql = "SELECT id, type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance ORDER BY energy_consumption ASC";
+                }
             }
 
-            if (sortCbx.Text == "Price (Low to High)")
-            {
-                sortQuery = "SELECT type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance ORDER BY monthly_rental_fee ASC";
-            }
 
-            if (sortCbx.Text == "Energy Consumption (High to Low)")
-            {
-                sortQuery = "SELECT type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance ORDER BY energy_consumption DESC";
-            }
 
-            if (sortCbx.Text == "Energy Consumption (Low to Low)")
-            {
-                sortQuery = "SELECT type, brand, model, size, colour, energy_consumption, monthly_rental_fee, minimum_rental_period, stock FROM appliance ORDER BY energy_consumption DESC";
-            }
+            // Open database connection
+            con.Open();
+            // Retrieve all surveys from 'survey' table
+            cmd = new SqlCommand(sql, con);
+            da = new SqlDataAdapter(cmd);
+            // Clear existing dataset if any
+            ds.Clear();
+            // Store retrived surveys in dataset
+            da.Fill(ds);
+            // Store dataset table in datatable
+            dt = ds.Tables[0];
+            // Close database connection
+            con.Close();
+
+            // Display data
+            appliancesDgv.DataSource = dt;
 
         }
 
@@ -215,15 +298,103 @@ namespace Home_Appliance_Rental_Application
         {
             typeCbx.SelectedIndex = -1;
             brandCbx.SelectedIndex = -1;
+            filterCondition = string.Empty;
         }
 
         private void clearSortBtn_Click(object sender, EventArgs e)
         {
             sortCbx.SelectedIndex = -1;
+            sortCondition = string.Empty;
         }
 
         private void deleteBtn_Click(object sender, EventArgs e)
         {
+            // Display confirmation message
+            if (MessageBox.Show("Are you sure you want to delete this appliance?",
+                               "Home Appliance Rental System",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+
+                int applianceID = Convert.ToInt32(appliancesDgv.CurrentRow.Cells["ID"].Value);
+
+                cmd = new SqlCommand("DELETE FROM appliance WHERE Id = " + applianceID + "", con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+                BindSource();
+                MessageBox.Show("The appliance has been deleted successfully", "Home Appliance Rental System", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            else { return; }
+        }
+
+        private void editBtn_Click(object sender, EventArgs e)
+        {
+
+            applianceID = Convert.ToInt32(appliancesDgv.CurrentRow.Cells["ID"].Value);
+            cmd = new SqlCommand("SELECT * FROM appliance WHERE Id = " + applianceID, con);
+            da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+
+            string type = dt.Rows[0]["type"].ToString();
+
+            switch (type)
+            {
+                case "Cooking":
+                    typeSelectedIndex = 0;
+                    break;
+                case "Refrigeration":
+                    typeSelectedIndex = 1;
+                    break;
+                case "Television":
+                    typeSelectedIndex = 2;
+                    break;
+                case "Washing & Cleaning":
+                    typeSelectedIndex = 3;
+                    break;
+                case "Small Appliances":
+                    typeSelectedIndex = 4;
+                    break;
+                default:
+                    break;
+            }
+
+            string brand = dt.Rows[0]["brand"].ToString();
+
+            switch (brand)
+            {
+                case "Defy":
+                    brandSelectedIndex = 0;
+                    break;
+                case "LG":
+                    brandSelectedIndex = 1;
+                    break;
+                case "Beko":
+                    brandSelectedIndex = 2;
+                    break;
+                case "Bosch":
+                    brandSelectedIndex = 3;
+                    break;
+                case "Panasonic":
+                    brandSelectedIndex = 4;
+                    break;
+                default:
+                    break;
+            }
+
+            applianceModel = dt.Rows[0]["model"].ToString();
+            applianceSize = dt.Rows[0]["size"].ToString();
+            applianceColour = dt.Rows[0]["colour"].ToString();
+            applianceStock = dt.Rows[0]["stock"].ToString();
+
+            applianceEnergyConsumption = dt.Rows[0]["energy_consumption"].ToString();
+            applianceMonthlyRentalPrice = dt.Rows[0]["monthly_rental_fee"].ToString();
+
+            editApplianceFrm editApplianceFrm = new editApplianceFrm();
+            editApplianceFrm.ShowDialog();
 
         }
     }

@@ -42,8 +42,8 @@
             this.editBtn = new System.Windows.Forms.Button();
             this.refreshBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.clearFilterBtn = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.clearSortBtn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -63,6 +63,7 @@
             this.quickSearchTxt.Name = "quickSearchTxt";
             this.quickSearchTxt.Size = new System.Drawing.Size(789, 37);
             this.quickSearchTxt.TabIndex = 71;
+            this.quickSearchTxt.TextChanged += new System.EventHandler(this.quickSearchTxt_TextChanged);
             // 
             // appliancesDgv
             // 
@@ -157,8 +158,8 @@
             this.typeCbx.FormattingEnabled = true;
             this.typeCbx.Items.AddRange(new object[] {
             "Cooking",
-            "Refridgeration",
-            "Entertainment",
+            "Refrigeration",
+            "Television",
             "Washing & Cleaning",
             "Small Appliances"});
             this.typeCbx.Location = new System.Drawing.Point(38, 82);
@@ -201,6 +202,7 @@
             this.editBtn.TabIndex = 74;
             this.editBtn.Text = "Edit";
             this.editBtn.UseVisualStyleBackColor = false;
+            this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
             // refreshBtn
             // 
@@ -232,20 +234,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "FILTER";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.clearSortBtn);
-            this.groupBox2.Controls.Add(this.sortBtn);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.sortCbx);
-            this.groupBox2.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(964, 25);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(549, 331);
-            this.groupBox2.TabIndex = 78;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "SORT";
-            // 
             // clearFilterBtn
             // 
             this.clearFilterBtn.BackColor = System.Drawing.SystemColors.Control;
@@ -260,6 +248,20 @@
             this.clearFilterBtn.Text = "Clear";
             this.clearFilterBtn.UseVisualStyleBackColor = false;
             this.clearFilterBtn.Click += new System.EventHandler(this.clearFilterBtn_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.clearSortBtn);
+            this.groupBox2.Controls.Add(this.sortBtn);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.sortCbx);
+            this.groupBox2.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(964, 25);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(549, 331);
+            this.groupBox2.TabIndex = 78;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "SORT";
             // 
             // clearSortBtn
             // 
